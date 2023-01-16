@@ -1,9 +1,19 @@
-export default function Todo({todoList}){
+import {FaTrashAlt} from 'react-icons/fa';
+export default function Todo({todo, deleteTodoList, changeStatus}){
+  
+  const handleBtn = () =>{
+    deleteTodoList(todo.id)
+  }
+  const handleChecked = () => {
+    const status = todo.status === 'active' ? 'complete' : 'active'
+    todo.status = status
+    changeStatus(todo)
+  }
   return (
-    <ul>
-      {todoList.map((d)=>(
-        <li key={d.id}>{d.text}</li>
-      ))}
-    </ul> 
+    <li>
+      <input type='checkbox' id='stauts' checked={todo.status==='complete'} onChange={handleChecked} />
+      <label htmlFor='status'>{todo.text}</label>
+      <button onClick={handleBtn}><FaTrashAlt></FaTrashAlt></button>
+    </li>
   )
 }
