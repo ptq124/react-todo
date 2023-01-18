@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import { v4 as uuidv4 } from 'uuid';
+import styles from './TodoButton.module.css'
 export default function TodoButton({addTodoList}){
   const [text, setText] = useState('')
 
@@ -8,11 +9,11 @@ export default function TodoButton({addTodoList}){
     setText('')
   }
   return (
-    <div>
-      <input type='text' name='text' value={text} onChange={(e) => {
+    <div className={styles.layout}>
+      <input className={styles.input} type='text' name='text' value={text} placeholder='Add Todo' onChange={(e) => {
         setText(e.target.value)
       }} />
-      <button onClick={addTodo}>add</button>
+      <button className={styles.button} onClick={addTodo}>add</button>
     </div>
   )
 }
