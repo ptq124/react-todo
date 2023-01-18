@@ -1,10 +1,17 @@
-import React from 'react'
+import { useDarkMode } from '../context/DarkModeContext'
+import styles from './Header.module.css'
+import {HiMoon, HiSun} from 'react-icons/hi'
+export default function TodoHeader({filters, filter, handlefilter}){
+  const {darkMode, toggleDarkMode} = useDarkMode()
 
-export default function TodoHeader({filters, handlefilter}){
   return (
-    <header>
+    <header className={styles.header_layout}>
+      <button onClick={toggleDarkMode} className={styles.dark}>
+        {!darkMode && <HiMoon />}
+        {darkMode && <HiSun />}
+      </button>
       {filters.map((d, index)=>(
-        <button key={index} onClick={()=>handlefilter(d)}>{d}</button>
+        <button className={`${styles.header_btn} ${filter===d && styles.selected}`} key={index} onClick={()=>handlefilter(d)}>{d}</button>
       ))}
     </header>
   )
