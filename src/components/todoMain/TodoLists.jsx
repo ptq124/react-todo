@@ -1,24 +1,10 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Todo from './Todo'
 import TodoButton from './TodoButton'
+import styles from './TodoLists.module.css'
+
 export default function TodoLists({filter}){
-  const [todoList, setTodoList] = useState([
-    {
-      id: 1,
-      text: '손씻기',
-      status: 'active',
-    },
-    {
-      id: 2,
-      text: '양치하기',
-      status: 'active',
-    },
-    {
-      id: 3,
-      text: '잠 자기',
-      status: 'active',
-    },
-  ])
+  const [todoList, setTodoList] = useState(readTodo)
   const addTodoList = (value) =>{
     setTodoList([...todoList, value])
   }
@@ -28,10 +14,16 @@ export default function TodoLists({filter}){
   const changeStatus = (todo) => {
     setTodoList(todoList.map(d => d.id === todo.id ? todo : d ))
   }
+
+  useEffect(()=>{
+    localStorage.setItem('todos',JSON.stringify
+    (todoList))
+  },[todoList])
+
   const filtered = getfilter(todoList, filter)
   return (
-    <section>
-      <ul>
+    <section className={styles.layout}>
+      <ul className={styles.list}>
         {filtered.map((d, index)=>(
           <Todo key={index} todo={d} deleteTodoList={deleteTodoList} changeStatus={changeStatus}></Todo>
         ))}
@@ -46,4 +38,8 @@ function getfilter(todoList, status){
     return todoList
   }
   return todoList.filter(d => d.status === status)
+}
+function readTodo(){
+  const todos = localStorage.getItem('todos')
+  return todos ? JSON.parse(todos) : []
 }

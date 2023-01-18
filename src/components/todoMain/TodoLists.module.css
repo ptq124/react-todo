@@ -1,0 +1,11 @@
+.layout {
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 90%;
+  width: 100%;
+}
+.list{
+  flex: 1 1 auto;
+}
