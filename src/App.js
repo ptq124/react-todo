@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { DarkModeProvider } from './components/context/DarkModeContext';
 import TodoHeader from './components/todoHead/TodoHeader'
 import TodoLists from './components/todoMain/TodoLists'
 
@@ -9,9 +10,9 @@ export default function App() {
     setfilter(option)
   }
   return (
-    <>
-      <TodoHeader filters={filters} handlefilter={handlefilter}></TodoHeader>
+    <DarkModeProvider>
+      <TodoHeader filters={filters} filter={filter} handlefilter={handlefilter}></TodoHeader>
       <TodoLists filter={filter}></TodoLists>
-    </>
+    </DarkModeProvider>
   );
 }
